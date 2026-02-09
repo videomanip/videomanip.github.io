@@ -48,7 +48,7 @@
         <div class="container is-max-desktop">
           <div class="columns is-centered">
             <div class="column has-text-centered">
-              <h1 class="title is-1 publication-title"><strong>Web2Grasp</strong>: Learning Functional Grasps from Web Images of Hand-Object Interactions</h1>
+              <h1 class="title is-1 publication-title">Dexterous Manipulation Policies from RGB Human Videos via 4D Hand-Object Trajectory Reconstruction</h1>
               <div class="column has-text-centered">
                 <div class="publication-links">
                   <!-- PDF Link -->
@@ -62,7 +62,7 @@
 
     <!-- Intro Video -->
     <!-- Intro Video -->
-    <section class="hero teaser">
+    <!-- <section class="hero teaser">
       <div class="container is-max-desktop">
         <div class="hero-body">
           <video id="intro" controls playsinline height="100%" class="video-with-border">
@@ -70,7 +70,7 @@
           </video>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <section class="section">
       <div class="container is-max-desktop">
@@ -80,10 +80,11 @@
             <h2 class="title is-3">Abstract</h2>
             <div class="content has-text-justified">
               <p>
-                Functional grasping is essential for enabling dexterous multi-finger robot hands to manipulate objects effectively. Prior work largely focuses on power grasps, which only involve holding an object, or relies on in-domain demonstrations for specific objects. 
-                We propose leveraging human grasp information extracted from web images, which capture natural and functional hand–object interactions (HOI).
-                Using a pretrained 3D reconstruction model, we recover 3D human HOI meshes from RGB images. To train on these noisy HOI data, we propose to use: 1) an interaction-centric model to learn the functional interaction pattern between hand and object, and 2) geometry-based filtering to remove the infeasible grasps and physical simulation to retain grasps who can resist disturbance. 
-                In IssacGym simulation, our model trained on reconstructed HOI grasps achieves a 75.8% success rate on objects from the web dataset and generalizes to unseen objects, yielding a 6.7% improvement in success rate and a 1.8$\times$ increase in functionality ratings compared to baselines. In real-world experiments with the LEAP hand and Inspire hand, it attains a 77.5% success rate across 12 objects, including challenging ones such as a syringe, spray bottle, knife, and tongs. 
+                Multi-finger robotic hand manipulation and grasping are challenging due to the high-dimensional action space and the difficulty of acquiring large-scale training data.
+                Existing approaches largely rely on human teleoperation with wearable devices or specialized sensing equipment to capture hand-object interactions, which limits scalability. 
+                In this work, we propose \mysystem, a device-free framework that learns dexterous manipulation directly from RGB human videos. Leveraging recent advances in computer vision, \mysystem reconstructs explicit 4D robot-object trajectories from monocular videos by estimating human hand poses, object meshes, and retargets the reconstructed human motions to robotic hands for manipulation learning. 
+                To make the reconstructed robot data suitable for dexterous manipulation training, we introduce hand-object contact optimization with interaction-centric grasp modeling, as well as a demonstration synthesis strategy that generates diverse training trajectories from a single video, enabling generalizable policy learning without additional robot demonstrations. 
+                In simulation, the learned grasping model achieves a 70.25% success rate across 20 diverse objects using the Inspire Hand. In the real world, manipulation policies trained from RGB videos achieve an average 62.86% success rate across seven tasks using the LEAP Hand, outperforming retargeting-based methods by 15.87%.
               </p>
             </div>
           </div>
