@@ -102,17 +102,15 @@
             <div class="content has-text-justified">
               <figure>
                 <img src="./static/image/videomanip_pipeline.png" alt="Overview of VideoManip Framework">
-                <figcaption style="font-style: normal; font-size: 0.95em;">We first reconstruct 4D robot–object interaction trajectories from RGB human videos via recent advances in 3D vision. To utilize the reconstructed data for dexterous grasping and manipulation learning, we perform grasp contact optimization and interaction-centric grasp modeling, and synthesize trajectories for generalizable manipulation. Finally, we deploy the trained models for real-world dexterous grasping and manipulation. </figcaption>
+                <p>
+                  We first reconstruct 4D robot–object interaction trajectories from RGB human videos via recent advances in 3D vision. To utilize the reconstructed data for dexterous grasping and manipulation learning, we perform grasp contact optimization and interaction-centric grasp modeling, and synthesize trajectories for generalizable manipulation. Finally, we deploy the trained models for real-world dexterous grasping and manipulation. 
+                </p>
               </figure>
             </div>
           </div>
         </div>
-        <!--/ Overview -->
       </div>
     </section>
-
-  
-
     <!-- Functional Grasp Predictions -->
     <section class="section">
       <div class="container is-max-desktop">
@@ -624,6 +622,7 @@
               <select id="failureTypeSelect" class="custom-select" style="width: 260px; padding: 8px; font-size: 16px; border-radius: 5px; border: 2px solid #66c0ff;">
                 <option value="obj_pose">Object Pose Estimation Error</option>
                 <option value="retarget">Hand Retargeting Failure</option>
+                <option value="manipulation">Manipulation Failures</option>
               </select>
             </div>
           </div>
@@ -655,7 +654,7 @@
                   <source src="static/data/failures/Obj Pose Estimation Error/human_0.mp4" type="video/mp4">
                   Your browser does not support the video tag.
                 </video>
-                <p style="margin-top: 8px; font-weight: 600;">Input Human Video (Case 1)</p>
+                <p style="margin-top: 8px; font-weight: 600;">Reconstructed Human Hand and Object Trajectory (Case 1)</p>
               </div>
             </div>
 
@@ -677,7 +676,7 @@
                   <source src="static/data/failures/Obj Pose Estimation Error/human_1.mp4" type="video/mp4">
                   Your browser does not support the video tag.
                 </video>
-                <p style="margin-top: 8px; font-weight: 600;">Input Human Video (Case 2)</p>
+                <p style="margin-top: 8px; font-weight: 600;">Reconstructed Human Hand and Object Trajectory (Case 2)</p>
               </div>
             </div>
           </div>
@@ -736,6 +735,56 @@
             </div>
           </div>
         </div>
+
+        <!-- Manipulation Failures -->
+        <div id="failure-manipulation" class="columns is-centered" style="display: none;">
+          <div class="column is-fullwidth">
+            <h3 class="title is-4 has-text-centered">Manipulation Failures</h3>
+            <!-- Row 1: failure_1 and failure_2 -->
+            <div class="columns is-centered has-text-centered" style="margin-bottom: 15px;">
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Manipulation Failure/failure_1.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Manipulation Failure/failure_1.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Failure Case 1 (Didn't remain contacted with bulb and too much force applied)</p>
+              </div>
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Manipulation Failure/failure_2.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Manipulation Failure/failure_2.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Failure Case 2 (Bump on shelf)</p>
+              </div>
+            </div>
+
+            <!-- Row 2: failure_3 and failure_4 -->
+            <div class="columns is-centered has-text-centered">
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Manipulation Failure/failure_3.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Manipulation Failure/failure_3.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Failure Case 3 (Miss the target bowl)</p>
+              </div>
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Manipulation Failure/failure_4.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Manipulation Failure/failure_4.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Failure Case 4 (Didn't fully close the drawer)</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -745,26 +794,25 @@
         const failureTypeSelect = document.getElementById('failureTypeSelect');
         const failureObjPose = document.getElementById('failure-obj-pose');
         const failureRetarget = document.getElementById('failure-retarget');
+        const failureManipulation = document.getElementById('failure-manipulation');
 
         function updateFailureView() {
           if (!failureTypeSelect) return;
           
           const type = failureTypeSelect.value;
           
+          // Hide all sections first
+          if (failureObjPose) failureObjPose.style.display = 'none';
+          if (failureRetarget) failureRetarget.style.display = 'none';
+          if (failureManipulation) failureManipulation.style.display = 'none';
+          
+          // Show selected section
           if (type === 'obj_pose') {
-            if (failureObjPose) {
-              failureObjPose.style.display = 'block';
-            }
-            if (failureRetarget) {
-              failureRetarget.style.display = 'none';
-            }
+            if (failureObjPose) failureObjPose.style.display = 'block';
           } else if (type === 'retarget') {
-            if (failureObjPose) {
-              failureObjPose.style.display = 'none';
-            }
-            if (failureRetarget) {
-              failureRetarget.style.display = 'block';
-            }
+            if (failureRetarget) failureRetarget.style.display = 'block';
+          } else if (type === 'manipulation') {
+            if (failureManipulation) failureManipulation.style.display = 'block';
           }
         }
 
