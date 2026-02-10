@@ -101,8 +101,8 @@
             <h2 class="title is-3">Pipeline Overview</h2>
             <div class="content has-text-justified">
               <figure>
-                <img src="./static/image/pipeline.png" alt="Overview of the Web2Grasp framework">
-                <figcaption style="font-style: normal; font-size: 0.95em;">We propose <strong>Web2Grasp</strong> for autonomously obtaining robot grasp data by reconstructing Hand-Object meshes from Web images and how to train dexterous grasping model using the noisy reconstructed HOI data. We demonstrate that the resulting dataset obtained via web images and not requiring any robot-specific teleoperation enables training a supervised learning model with strong grasping performance both in simulation and in the real-world. </figcaption>
+                <img src="./static/image/videomanip_pipeline.png" alt="Overview of VideoManip Framework">
+                <figcaption style="font-style: normal; font-size: 0.95em;">We first reconstruct 4D robot–object interaction trajectories from RGB human videos via recent advances in 3D vision. To utilize the reconstructed data for dexterous grasping and manipulation learning, we perform grasp contact optimization and interaction-centric grasp modeling, and synthesize trajectories for generalizable manipulation. Finally, we deploy the trained models for real-world dexterous grasping and manipulation. </figcaption>
               </figure>
             </div>
           </div>
@@ -110,10 +110,6 @@
         <!--/ Overview -->
       </div>
     </section>
-
-
-
-
 
     
     <!-- Grasp Demo Video -->
@@ -124,113 +120,6 @@
             <source src="static/data/grasp/grasp_demo.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
-        </div>
-      </div>
-    </section>
-
-    <!-- Reconstruction Grasps -->
-    <section class="section">
-      <div class="container is-max-desktop">
-        <div class="columns is-centered">
-          <div class="column">
-            <h2 class="title is-3 has-text-centered">Grasps</h2>
-            <div class="columns is-centered">
-              <div class="column is-two-third">
-                <div class="content has-text-justified">
-                  <p class="has-text-centered" style="margin-top: -10px; margin-bottom: 20px;">
-                    More Details in the Paper.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="columns is-centered has-text-centered">
-          <!-- Model Viewers for Reconstructed HOI -->
-          <div class="column is-one-quarter" style="display: flex; flex-direction: column; align-items: center;">
-            <model-viewer
-              id="modelViewerHOI0"
-              src="static/data/grasp/inspire/powerdrill/0.glb"
-              alt="Reconstructed HOI Inspire"
-              ar
-              camera-controls
-              auto-rotate
-              auto-rotate-delay="1000"
-              interaction-prompt-threshold="2000"
-              exposure="1.2"
-              shadow-intensity="1"
-              environment-image="neutral"
-              style="width: 200px; height: 200px; border: 3px solid #66c0ff; border-radius: 15px;">
-            </model-viewer>
-            <p style="font-size: 20px; font-weight: bold;">Inspire</p>
-          </div>
-
-          <div class="column is-one-quarter" style="display: flex; flex-direction: column; align-items: center;">
-            <model-viewer
-              id="modelViewerHOI1"
-              src="static/data/grasp/shadowhand/powerdrill/0.glb"
-              alt="Reconstructed HOI ShadowHand"
-              ar
-              camera-controls
-              auto-rotate
-              auto-rotate-delay="1000"
-              interaction-prompt-threshold="2000"
-              exposure="1.2"
-              shadow-intensity="1"
-              environment-image="neutral"
-              style="width: 200px; height: 200px; border: 3px solid #66c0ff; border-radius: 15px;">
-            </model-viewer>
-            <p style="font-size: 20px; font-weight: bold;">ShadowHand</p>
-          </div>
-
-          <div class="column is-one-quarter" style="display: flex; flex-direction: column; align-items: center;">
-            <model-viewer
-              id="modelViewerHOI2"
-              src="static/data/grasp/leaphand/powerdrill/0.glb"
-              alt="Reconstructed HOI LeapHand"
-              ar
-              camera-controls
-              auto-rotate
-              auto-rotate-delay="1000"
-              interaction-prompt-threshold="2000"
-              exposure="1.2"
-              shadow-intensity="1"
-              environment-image="neutral"
-              style="width: 200px; height: 200px; border: 3px solid #66c0ff; border-radius: 15px;">
-            </model-viewer>
-            <p style="font-size: 20px; font-weight: bold;">LeapHand</p>
-          </div>
-
-          <!-- Controls for Object Selection -->
-          <div class="column is-one-quarter">
-            <!-- Object Name Dropdown -->
-            <div class="dropdown-container" style="text-align: center; margin-top: 10px; margin-bottom: 20px;">
-              <label for="objectNameHOI" style="font-size: 20px; font-weight: bold;">Object Name</label>
-              <select id="objectNameHOI" class="custom-select" style="width: 200px; margin-top: 10px;">
-                <option value="apple" style="font-size: 14px;">apple</option>
-                <option value="bottle" style="font-size: 14px;">bottle</option>
-                <option value="bowl" style="font-size: 14px;">bowl</option>
-                <option value="case" style="font-size: 14px;">case</option>
-                <option value="cup" style="font-size: 14px;">cup</option>
-                <option value="handlebag" style="font-size: 14px;">handlebag</option>
-                <option value="hanger" style="font-size: 14px;">hanger</option>
-                <option value="hat" style="font-size: 14px;">hat</option>
-                <option value="ladle" style="font-size: 14px;">ladle</option>
-                <option value="mug" style="font-size: 14px;">mug</option>
-                <option value="pan" style="font-size: 14px;">pan</option>
-                <option value="pot" style="font-size: 14px;">pot</option>
-                <option value="powerdrill" style="font-size: 14px;">powerdrill</option>
-                <option value="scissors" style="font-size: 14px;">scissors</option>
-                <option value="spraybottle" style="font-size: 14px;">spraybottle</option>
-                <option value="sprayer" style="font-size: 14px;">sprayer</option>
-                <option value="sunglass" style="font-size: 14px;">sunglass</option>
-                <option value="toothbrush" style="font-size: 14px;">toothbrush</option>
-                <option value="umbrella" style="font-size: 14px;">umbrella</option>
-                <option value="wineglass" style="font-size: 14px;">wineglass</option>
-              </select>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -272,34 +161,10 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> 
 
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        // HOI Model Viewers
-        const modelViewerHOI0 = document.getElementById('modelViewerHOI0');
-        const modelViewerHOI1 = document.getElementById('modelViewerHOI1');
-        const modelViewerHOI2 = document.getElementById('modelViewerHOI2');
-        const objectNameSelectHOI = document.getElementById('objectNameHOI');
-
-        // Robot hands to display
-        const robotHands = ['inspire', 'shadowhand', 'leaphand'];
-
-        function updateModelHOI() {
-          const selectedObject = objectNameSelectHOI.value;
-          // Update each model viewer with a different robot hand
-          const basePath = 'static/data/grasp';
-          modelViewerHOI0.src = `${basePath}/${robotHands[0]}/${selectedObject}/0.glb`;
-          modelViewerHOI1.src = `${basePath}/${robotHands[1]}/${selectedObject}/0.glb`;
-          modelViewerHOI2.src = `${basePath}/${robotHands[2]}/${selectedObject}/0.glb`;
-        }
-
-        if (objectNameSelectHOI) {
-          objectNameSelectHOI.addEventListener('change', updateModelHOI);
-          // Initialize with default object
-          updateModelHOI();
-        }
-
         // Functional Grasp Carousel
         const objectCarousel = document.getElementById('object-carousel');
         const carouselLeft = document.getElementById('carousel-left');
@@ -392,7 +257,7 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column">
-            <h2 class="title is-3 has-text-centered">Real-world Demos</h2>
+            <h2 class="title is-3 has-text-centered">Real-world Evaluation Demos</h2>
             <p class="has-text-centered" style="margin-top: -10px; margin-bottom: 20px; font-style: italic;">All videos are sped up by 2 times</p>
           </div>
         </div>
