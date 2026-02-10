@@ -268,7 +268,7 @@
               <div class="manip-control-panel" style="width: 100%; max-width: 1200px; margin-bottom: 20px; padding: 15px; background-color: #f5f5f5; border-radius: 10px; display: flex; justify-content: center; align-items: center; gap: 20px;">
                 <label for="manipCategorySelect" style="font-size: 18px; font-weight: bold;">Select Category:</label>
                 <select id="manipCategorySelect" class="custom-select" style="width: 200px; padding: 8px; font-size: 16px; border-radius: 5px; border: 2px solid #66c0ff;">
-                  <option value="in_the_scene">In The Scene</option>
+                  <option value="in_scene">In Scene</option>
                   <option value="in_the_wild">In The Wild</option>
                 </select>
                 <label for="manipTaskSelect" style="font-size: 18px; font-weight: bold;">Select Task:</label>
@@ -348,13 +348,13 @@
 
         // Category to tasks mapping
         const categoryTasks = {
-          'in_the_scene': ['pourtea', 'placebottle', 'closedrawer'],
+          'in_scene': ['pourtea', 'placebottle', 'closedrawer'],
           'in_the_wild': ['pourtea', 'hang', 'jenga_move', 'bulb']
         };
 
         // Default task for each category (first task in the list)
         const defaultTasks = {
-          'in_the_scene': 'placebottle',
+          'in_scene': 'placebottle',
           'in_the_wild': 'hang'
         };
 
@@ -379,8 +379,8 @@
           if (task === 'jenga_move') {
             case1 = `${basePath}/jenga_move_1.mp4`;
             case2 = `${basePath}/jenga_move_2.mp4`;
-          } else if (task === 'placebottle' && category === 'in_the_scene') {
-            // in_the_scene/placebottle has placebottle_1, placebottle_2, placebottle_3
+          } else if (task === 'placebottle' && category === 'in_scene') {
+            // in_scene/placebottle has placebottle_1, placebottle_2, placebottle_3
             case1 = `${basePath}/placebottle_1.mp4`;
             case2 = `${basePath}/placebottle_2.mp4`;
           }
