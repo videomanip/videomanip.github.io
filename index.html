@@ -235,11 +235,6 @@
         }
       });
     </script>
-    <!--/ Simulation Grasps -->
-
-    <!-- Partial Observation Grasps -->
-
-    <!--/ Partial Observation Grasps -->
 
     <section class="section">
       <div class="container is-max-desktop">
@@ -267,29 +262,41 @@
               </div>
               
               <!-- First Row: RGB and Human -->
-              <div class="manip-videos-row-1" style="display: flex; flex-direction: row; gap: 15px; justify-content: center; align-items: center; width: 100%; max-width: 100vw; padding: 0 15px; margin-bottom: 15px;">
-                <video id="manip-video-rgb" autoplay muted loop playsinline controls preload="auto" style="width: calc((100vw - 45px) / 2); max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
-                  <source src="static/data/manip/pourtea/rgb.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
-                  <source src="static/data/manip/pourtea/rgb.mp4" type="video/mp4">
-                  Your browser does not support the video tag.
-                </video>
-                <video id="manip-video-human" autoplay muted loop playsinline controls preload="auto" style="width: calc((100vw - 45px) / 2); max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
-                  <source src="static/data/manip/pourtea/human.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
-                  <source src="static/data/manip/pourtea/human.mp4" type="video/mp4">
-                  Your browser does not support the video tag.
-                </video>
+              <div class="manip-videos-row-1" style="display: flex; flex-direction: row; gap: 15px; justify-content: center; align-items: flex-start; width: 100%; max-width: 100vw; padding: 0 15px; margin-bottom: 15px;">
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                  <video id="manip-video-rgb" autoplay muted loop playsinline controls preload="auto" style="width: 100%; max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
+                    <source src="static/data/manip/pourtea/rgb.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                    <source src="static/data/manip/pourtea/rgb.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                  <p style="margin-top: 8px; font-weight: 600;">RGB Human Video</p>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                  <video id="manip-video-human" autoplay muted loop playsinline controls preload="auto" style="width: 100%; max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
+                    <source src="static/data/manip/pourtea/human.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                    <source src="static/data/manip/pourtea/human.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                  <p style="margin-top: 8px; font-weight: 600;">Reconstructed Human Hand and Object Trajectory</p>
+                </div>
               </div>
               
               <!-- Second Row: Robot Execution Videos (Case 1 and Case 2) -->
-              <div class="manip-videos-row-2" style="display: flex; flex-direction: row; gap: 15px; justify-content: center; align-items: center; width: 100%; max-width: 100vw; padding: 0 15px;">
-                <video id="manip-video-1" autoplay muted loop playsinline controls preload="auto" style="width: calc((100vw - 45px) / 2); max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
-                  <source src="static/data/manip/pourtea/pourtea_1.mp4" type="video/mp4">
-                  Your browser does not support the video tag.
-                </video>
-                <video id="manip-video-2" autoplay muted loop playsinline controls preload="auto" style="width: calc((100vw - 45px) / 2); max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
-                  <source src="static/data/manip/pourtea/pourtea_2.mp4" type="video/mp4">
-                  Your browser does not support the video tag.
-                </video>
+              <div class="manip-videos-row-2" style="display: flex; flex-direction: row; gap: 15px; justify-content: center; align-items: flex-start; width: 100%; max-width: 100vw; padding: 0 15px;">
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                  <video id="manip-video-1" autoplay muted loop playsinline controls preload="auto" style="width: 100%; max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
+                    <source src="static/data/manip/pourtea/pourtea_1.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                  <p style="margin-top: 8px; font-weight: 600;">Real-World Test 1</p>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                  <video id="manip-video-2" autoplay muted loop playsinline controls preload="auto" style="width: 100%; max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
+                    <source src="static/data/manip/pourtea/pourtea_2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                  <p style="margin-top: 8px; font-weight: 600;">Real-World Test 2</p>
+                </div>
               </div>
             </div>
           </div>
@@ -512,31 +519,43 @@
               </div>
               
               <!-- First Row: RGB and Projection -->
-              <div class="reconstruction-videos-row-1" style="display: flex; flex-direction: row; gap: 15px; justify-content: center; align-items: center; width: 100%; max-width: 100vw; padding: 0 15px; margin-bottom: 15px;">
-                <video id="reconstruction-video-rgb" autoplay muted loop playsinline controls preload="auto" style="width: calc((100vw - 45px) / 2); max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
-                  <source src="static/data/reconstruction/Lint Roller Clean/rgb.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
-                  <source src="static/data/reconstruction/Lint Roller Clean/rgb.mp4" type="video/mp4">
-                  Your browser does not support the video tag.
-                </video>
-                <video id="reconstruction-video-projection" autoplay muted loop playsinline controls preload="auto" style="width: calc((100vw - 45px) / 2); max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
-                  <source src="static/data/reconstruction/Lint Roller Clean/projection.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
-                  <source src="static/data/reconstruction/Lint Roller Clean/projection.mp4" type="video/mp4">
-                  Your browser does not support the video tag.
-                </video>
+              <div class="reconstruction-videos-row-1" style="display: flex; flex-direction: row; gap: 15px; justify-content: center; align-items: flex-start; width: 100%; max-width: 100vw; padding: 0 15px; margin-bottom: 15px;">
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                  <video id="reconstruction-video-rgb" autoplay muted loop playsinline controls preload="auto" style="width: 100%; max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
+                    <source src="static/data/reconstruction/Lint Roller Clean/rgb.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                    <source src="static/data/reconstruction/Lint Roller Clean/rgb.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                  <p style="margin-top: 8px; font-weight: 600;">RGB Human Video</p>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                  <video id="reconstruction-video-projection" autoplay muted loop playsinline controls preload="auto" style="width: 100%; max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
+                    <source src="static/data/reconstruction/Lint Roller Clean/projection.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                    <source src="static/data/reconstruction/Lint Roller Clean/projection.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                  <p style="margin-top: 8px; font-weight: 600;">Reconstructed Point Clouds Projected to Video</p>
+                </div>
               </div>
               
               <!-- Second Row: Human and Robot -->
-              <div class="reconstruction-videos-row-2" style="display: flex; flex-direction: row; gap: 15px; justify-content: center; align-items: center; width: 100%; max-width: 100vw; padding: 0 15px;">
-                <video id="reconstruction-video-human" autoplay muted loop playsinline controls preload="auto" style="width: calc((100vw - 45px) / 2); max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
-                  <source src="static/data/reconstruction/Lint Roller Clean/human.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
-                  <source src="static/data/reconstruction/Lint Roller Clean/human.mp4" type="video/mp4">
-                  Your browser does not support the video tag.
-                </video>
-                <video id="reconstruction-video-robot" autoplay muted loop playsinline controls preload="auto" style="width: calc((100vw - 45px) / 2); max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
-                  <source src="static/data/reconstruction/Lint Roller Clean/robot.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
-                  <source src="static/data/reconstruction/Lint Roller Clean/robot.mp4" type="video/mp4">
-                  Your browser does not support the video tag.
-                </video>
+              <div class="reconstruction-videos-row-2" style="display: flex; flex-direction: row; gap: 15px; justify-content: center; align-items: flex-start; width: 100%; max-width: 100vw; padding: 0 15px;">
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                  <video id="reconstruction-video-human" autoplay muted loop playsinline controls preload="auto" style="width: 100%; max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
+                    <source src="static/data/reconstruction/Lint Roller Clean/human.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                    <source src="static/data/reconstruction/Lint Roller Clean/human.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                  <p style="margin-top: 8px; font-weight: 600;">Reconstructed Human Hand and Object Trajectory</p>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                  <video id="reconstruction-video-robot" autoplay muted loop playsinline controls preload="auto" style="width: 100%; max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
+                    <source src="static/data/reconstruction/Lint Roller Clean/robot.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                    <source src="static/data/reconstruction/Lint Roller Clean/robot.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                  <p style="margin-top: 8px; font-weight: 600;">Reconstructed Robot Hand and Object Trajectory</p>
+                </div>
               </div>
             </div>
           </div>
@@ -690,7 +709,7 @@
                   <source src="static/data/failures/Hand Retargeting Failure/human.mp4" type="video/mp4">
                   Your browser does not support the video tag.
                 </video>
-                <p style="margin-top: 8px; font-weight: 600;">Reconstructed Human Hand</p>
+                <p style="margin-top: 8px; font-weight: 600;">Reconstructed Human Hand and Object Trajectory</p>
               </div>
             </div>
 
@@ -703,7 +722,7 @@
                   <source src="static/data/failures/Hand Retargeting Failure/robot_inspire.mp4" type="video/mp4">
                   Your browser does not support the video tag.
                 </video>
-                <p style="margin-top: 8px; font-weight: 600;">Retargeted Inspire Hand</p>
+                <p style="margin-top: 8px; font-weight: 600;">Retargeted Inspire Hand and Object Trajectory</p>
               </div>
               <div class="column is-half">
                 <video autoplay muted loop playsinline controls preload="auto"
@@ -712,7 +731,7 @@
                   <source src="static/data/failures/Hand Retargeting Failure/robot_leap.mp4" type="video/mp4">
                   Your browser does not support the video tag.
                 </video>
-                <p style="margin-top: 8px; font-weight: 600;">Retargeted LEAP Hand</p>
+                <p style="margin-top: 8px; font-weight: 600;">Retargeted LEAP Hand and Object Trajectory</p>
               </div>
             </div>
           </div>
