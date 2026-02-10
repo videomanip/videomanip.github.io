@@ -118,7 +118,7 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column">
-            <h2 class="title is-3 has-text-centered">Dexterous Grasp Predictions</h2>
+            <h2 class="title is-3 has-text-centered">Dexterous Grasp Evaluations in Simulation</h2>
                 <div class="columns is-centered">
                   <div class="column">
                 <div class="content has-text-justified">
@@ -245,7 +245,7 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column">
-            <h2 class="title is-3 has-text-centered">Real-world Evaluation Demos</h2>
+            <h2 class="title is-3 has-text-centered">Real-world Dexterous Robot Hand Manipulation Evaluations</h2>
             <p class="has-text-centered" style="margin-top: -10px; margin-bottom: 20px; font-style: italic;">All real-world robot execution videos are sped up by 4 times</p>
           </div>
         </div>
@@ -305,6 +305,34 @@
         mainVideo.loop = true;
         mainVideo.load();
         mainVideo.play();
+      }
+
+      // Shared function to update video source
+      function updateVideoSource(videoElement, videoSrc) {
+        // Remove all existing source elements
+        const existingSources = videoElement.querySelectorAll('source');
+        existingSources.forEach(source => source.remove());
+        
+        // Add new source elements with H.264 codec (all videos are now H.264)
+        const source1 = document.createElement('source');
+        source1.src = videoSrc;
+        source1.type = 'video/mp4; codecs=avc1.64001E,mp4a.40.2'; // H.264 High Profile
+        videoElement.appendChild(source1);
+        
+        const source2 = document.createElement('source');
+        source2.src = videoSrc;
+        source2.type = 'video/mp4; codecs=avc1.42E01E,mp4a.40.2'; // H.264 Baseline Profile (fallback)
+        videoElement.appendChild(source2);
+        
+        const source3 = document.createElement('source');
+        source3.src = videoSrc;
+        source3.type = 'video/mp4'; // Generic fallback
+        videoElement.appendChild(source3);
+        
+        // Also set video src directly as fallback
+        videoElement.src = videoSrc;
+        videoElement.load();
+        return videoElement;
       }
 
       // Manip videos task selection
@@ -410,33 +438,6 @@
           }
         }
 
-        function updateVideoSource(videoElement, videoSrc) {
-          // Remove all existing source elements
-          const existingSources = videoElement.querySelectorAll('source');
-          existingSources.forEach(source => source.remove());
-          
-          // Add new source elements with H.264 codec (all videos are now H.264)
-          const source1 = document.createElement('source');
-          source1.src = videoSrc;
-          source1.type = 'video/mp4; codecs=avc1.64001E,mp4a.40.2'; // H.264 High Profile
-          videoElement.appendChild(source1);
-          
-          const source2 = document.createElement('source');
-          source2.src = videoSrc;
-          source2.type = 'video/mp4; codecs=avc1.42E01E,mp4a.40.2'; // H.264 Baseline Profile (fallback)
-          videoElement.appendChild(source2);
-          
-          const source3 = document.createElement('source');
-          source3.src = videoSrc;
-          source3.type = 'video/mp4'; // Generic fallback
-          videoElement.appendChild(source3);
-          
-          // Also set video src directly as fallback
-          videoElement.src = videoSrc;
-          videoElement.load();
-          return videoElement;
-        }
-
         function updateManipVideos() {
           const selectedCategory = manipCategorySelect.value;
           const selectedTask = manipTaskSelect.value;
@@ -485,9 +486,107 @@
         }
       });
     </script> 
+
+    <!-- Reconstruction Videos Section -->
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column">
+            <h2 class="title is-3 has-text-centered">More 4D Hand-Object Trajectory Reconstructions from In-the-Wild Human Videos</h2>
+          </div>
+        </div>
     
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-fullwidth">
+            <div class="reconstruction-videos-container" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+              <!-- Control Panel -->
+              <div class="reconstruction-control-panel" style="width: 100%; max-width: 1200px; margin-bottom: 20px; padding: 15px; background-color: #f5f5f5; border-radius: 10px; display: flex; justify-content: center; align-items: center; gap: 20px;">
+                <label for="reconstructionTaskSelect" style="font-size: 18px; font-weight: bold;">Select Task:</label>
+                <select id="reconstructionTaskSelect" class="custom-select" style="width: 250px; padding: 8px; font-size: 16px; border-radius: 5px; border: 2px solid #66c0ff;">
+                  <option value="Lint Roller Clean">Lint Roller Clean</option>
+                  <option value="Scoop Cat Litter">Scoop Cat Litter</option>
+                  <option value="Scoop Nugget">Scoop Nugget</option>
+                  <option value="Screw Small Bulb">Screw Small Bulb</option>
+                  <option value="Clean Cloth">Clean Cloth</option>
+                </select>
+              </div>
+              
+              <!-- First Row: RGB and Projection -->
+              <div class="reconstruction-videos-row-1" style="display: flex; flex-direction: row; gap: 15px; justify-content: center; align-items: center; width: 100%; max-width: 100vw; padding: 0 15px; margin-bottom: 15px;">
+                <video id="reconstruction-video-rgb" autoplay muted loop playsinline controls preload="auto" style="width: calc((100vw - 45px) / 2); max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
+                  <source src="static/data/reconstruction/Lint Roller Clean/rgb.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/reconstruction/Lint Roller Clean/rgb.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <video id="reconstruction-video-projection" autoplay muted loop playsinline controls preload="auto" style="width: calc((100vw - 45px) / 2); max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
+                  <source src="static/data/reconstruction/Lint Roller Clean/projection.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/reconstruction/Lint Roller Clean/projection.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              
+              <!-- Second Row: Human and Robot -->
+              <div class="reconstruction-videos-row-2" style="display: flex; flex-direction: row; gap: 15px; justify-content: center; align-items: center; width: 100%; max-width: 100vw; padding: 0 15px;">
+                <video id="reconstruction-video-human" autoplay muted loop playsinline controls preload="auto" style="width: calc((100vw - 45px) / 2); max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
+                  <source src="static/data/reconstruction/Lint Roller Clean/human.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/reconstruction/Lint Roller Clean/human.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <video id="reconstruction-video-robot" autoplay muted loop playsinline controls preload="auto" style="width: calc((100vw - 45px) / 2); max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
+                  <source src="static/data/reconstruction/Lint Roller Clean/robot.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/reconstruction/Lint Roller Clean/robot.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <script>
+      // Reconstruction videos task selection
+      document.addEventListener('DOMContentLoaded', function() {
+        const reconstructionTaskSelect = document.getElementById('reconstructionTaskSelect');
+        const reconstructionVideoRgb = document.getElementById('reconstruction-video-rgb');
+        const reconstructionVideoProjection = document.getElementById('reconstruction-video-projection');
+        const reconstructionVideoHuman = document.getElementById('reconstruction-video-human');
+        const reconstructionVideoRobot = document.getElementById('reconstruction-video-robot');
 
+        function updateReconstructionVideos() {
+          const selectedTask = reconstructionTaskSelect.value;
+          
+          if (!selectedTask) {
+            return;
+          }
+          
+          const basePath = `static/data/reconstruction/${selectedTask}`;
+          
+          // Update video sources
+          updateVideoSource(reconstructionVideoRgb, `${basePath}/rgb.mp4`);
+          updateVideoSource(reconstructionVideoProjection, `${basePath}/projection.mp4`);
+          updateVideoSource(reconstructionVideoHuman, `${basePath}/human.mp4`);
+          updateVideoSource(reconstructionVideoRobot, `${basePath}/robot.mp4`);
+          
+          // Ensure autoplay after load with error handling
+          setTimeout(() => {
+            reconstructionVideoRgb.play().catch(e => console.log('RGB autoplay prevented:', e));
+            reconstructionVideoProjection.play().catch(e => console.log('Projection autoplay prevented:', e));
+            reconstructionVideoHuman.play().catch(e => console.log('Human autoplay prevented:', e));
+            reconstructionVideoRobot.play().catch(e => console.log('Robot autoplay prevented:', e));
+          }, 200);
+        }
+
+        // Event listener
+        if (reconstructionTaskSelect) {
+          reconstructionTaskSelect.addEventListener('change', updateReconstructionVideos);
+          // Load default task videos on page load
+          setTimeout(() => {
+            updateReconstructionVideos();
+          }, 200);
+        }
+      });
+    </script>
 
     <!-- Footer -->
     <footer class="footer", style="padding: 40px 0;">
