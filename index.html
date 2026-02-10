@@ -588,6 +588,175 @@
       });
     </script>
 
+    <!-- Failure Analysis Section -->
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column">
+            <h2 class="title is-3 has-text-centered">Failure Analysis</h2>
+          </div>
+        </div>
+
+        <!-- Failure Type Selector -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-fullwidth">
+            <div class="failure-control-panel" style="width: 100%; max-width: 600px; margin: 0 auto 20px auto; padding: 15px; background-color: #f5f5f5; border-radius: 10px; display: flex; justify-content: center; align-items: center; gap: 20px;">
+              <label for="failureTypeSelect" style="font-size: 18px; font-weight: bold;">Select Failure Type:</label>
+              <select id="failureTypeSelect" class="custom-select" style="width: 260px; padding: 8px; font-size: 16px; border-radius: 5px; border: 2px solid #66c0ff;">
+                <option value="obj_pose">Object Pose Estimation Error</option>
+                <option value="retarget">Hand Retargeting Failure</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Object Pose Estimation Error -->
+        <div id="failure-obj-pose" class="columns is-centered">
+          <div class="column is-fullwidth">
+            <h3 class="title is-4 has-text-centered">Object Pose Estimation Error</h3>
+            <p class="has-text-centered" style="margin-top: -10px; margin-bottom: 20px; max-width: 900px; margin-left: auto; margin-right: auto;">
+              Incorrect object pose estimation can occur when the hand occludes the object.
+            </p>
+
+            <!-- Row 1: obj_pose_0 and human_0 -->
+            <div class="columns is-centered has-text-centered" style="margin-bottom: 15px;">
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Obj Pose Estimation Error/obj_pose_0.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Obj Pose Estimation Error/obj_pose_0.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Estimated Object Pose (Case 1)</p>
+              </div>
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Obj Pose Estimation Error/human_0.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Obj Pose Estimation Error/human_0.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Input Human Video (Case 1)</p>
+              </div>
+            </div>
+
+            <!-- Row 2: obj_pose_1 and human_1 -->
+            <div class="columns is-centered has-text-centered">
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Obj Pose Estimation Error/obj_pose_1.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Obj Pose Estimation Error/obj_pose_1.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Estimated Object Pose (Case 2)</p>
+              </div>
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Obj Pose Estimation Error/human_1.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Obj Pose Estimation Error/human_1.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Input Human Video (Case 2)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hand Retargeting Failure -->
+        <div id="failure-retarget" class="columns is-centered" style="margin-top: 40px; display: none;">
+          <div class="column is-fullwidth">
+            <h3 class="title is-4 has-text-centered">Hand Retargeting Failure</h3>
+            <p class="has-text-centered" style="margin-top: -10px; margin-bottom: 20px; max-width: 900px; margin-left: auto; margin-right: auto;">
+              Our retargeting is position-based: we match robot fingertip positions to those of the human hand. However, because the LEAP Hand is significantly larger than a human hand, large pose adjustments are required to bring the robot fingertips close to the human finger positions, which lead to failure cases. While Inspire Hand, which is similar in size to a human hand, does not suffer from this problem.
+            </p>
+
+            <!-- Row 1: rgb and human -->
+            <div class="columns is-centered has-text-centered" style="margin-bottom: 15px;">
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Hand Retargeting Failure/rgb.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Hand Retargeting Failure/rgb.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Input RGB Video</p>
+              </div>
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Hand Retargeting Failure/human.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Hand Retargeting Failure/human.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Reconstructed Human Hand</p>
+              </div>
+            </div>
+
+            <!-- Row 2: robot_inspire and robot_leap -->
+            <div class="columns is-centered has-text-centered">
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Hand Retargeting Failure/robot_inspire.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Hand Retargeting Failure/robot_inspire.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Retargeted Inspire Hand</p>
+              </div>
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Hand Retargeting Failure/robot_leap.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Hand Retargeting Failure/robot_leap.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Retargeted LEAP Hand</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // Failure analysis type selection
+      document.addEventListener('DOMContentLoaded', function() {
+        const failureTypeSelect = document.getElementById('failureTypeSelect');
+        const failureObjPose = document.getElementById('failure-obj-pose');
+        const failureRetarget = document.getElementById('failure-retarget');
+
+        function updateFailureView() {
+          if (!failureTypeSelect) return;
+          
+          const type = failureTypeSelect.value;
+          
+          if (type === 'obj_pose') {
+            if (failureObjPose) {
+              failureObjPose.style.display = 'block';
+            }
+            if (failureRetarget) {
+              failureRetarget.style.display = 'none';
+            }
+          } else if (type === 'retarget') {
+            if (failureObjPose) {
+              failureObjPose.style.display = 'none';
+            }
+            if (failureRetarget) {
+              failureRetarget.style.display = 'block';
+            }
+          }
+        }
+
+        if (failureTypeSelect) {
+          failureTypeSelect.addEventListener('change', updateFailureView);
+          // Initialize on page load - show obj_pose by default
+          updateFailureView();
+        }
+      });
+    </script>
+
     <!-- Footer -->
     <footer class="footer", style="padding: 40px 0;">
       <div class="container">
