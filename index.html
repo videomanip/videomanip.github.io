@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Video2Manip</title>
+    <title>VideoManip</title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- <meta name="author" content="anonymous"> -->
@@ -120,10 +120,10 @@
         <!-- Overview -->
         <div class="columns is-centered has-text-centered">
           <div class="column">
-            <h2 class="title is-3">Pipeline Overview</h2>
+            <h2 class="title is-3">VideoManip Overview</h2>
             <div class="content has-text-justified">
               <p>
-                We first reconstruct 4D robot–object interaction trajectories from RGB human videos via recent advances in 3D vision. To utilize the reconstructed data for dexterous grasping and manipulation learning, we perform grasp contact optimization and interaction-centric grasp modeling, and synthesize trajectories for generalizable manipulation. Finally, we deploy the trained models for real-world dexterous grasping and manipulation. 
+                We first reconstruct 3D robot–object interaction trajectories from RGB human videos via recent advances in 3D vision. To utilize the reconstructed data for dexterous grasping and manipulation learning, we perform grasp contact optimization and interaction-centric grasp modeling, and synthesize trajectories for generalizable manipulation. Finally, we deploy the trained models for real-world dexterous grasping and manipulation. 
               </p>
               <figure>
                 <img src="./static/image/videomanip_pipeline.png" alt="Overview of VideoManip Framework">
@@ -760,7 +760,7 @@
           <div class="column is-fullwidth">
             <h3 class="title is-4 has-text-centered">Hand Retargeting Failure</h3>
             <p class="has-text-centered" style="margin-top: -10px; margin-bottom: 20px; max-width: 900px; margin-left: auto; margin-right: auto;">
-              Our retargeting is position-based: we match robot fingertip positions to those of the human hand. However, because the LEAP Hand is significantly larger than a human hand, large pose adjustments are required to bring the robot fingertips close to the human finger positions, which lead to failure cases. While Inspire Hand, which is similar in size to a human hand, does not suffer from this problem.
+              For kinematic retargeting, we match robot fingertip positions to those of the human hand. However, because the LEAP Hand is significantly larger than a human hand, large pose adjustments are required to bring the robot fingertips close to the human finger positions, which lead to failure cases. While Inspire Hand, which is similar in size to a human hand, does not suffer from this problem.
             </p>
 
             <!-- Row 1: rgb and human -->
@@ -822,7 +822,7 @@
                   <source src="static/data/failures/Manipulation Failure/failure_1.mp4" type="video/mp4">
                   Your browser does not support the video tag.
                 </video>
-                <p style="margin-top: 8px; font-weight: 600;">Failure Case 1 (Didn't remain contacted with bulb and too much force applied)</p>
+                <p style="margin-top: 8px; font-weight: 600;">Failure Case 1 (Didn't remain in contact with bulb, too much force was applied)</p>
               </div>
               <div class="column is-half">
                 <video autoplay muted loop playsinline controls preload="auto"
