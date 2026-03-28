@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>VideoManip</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- <meta name="author" content="anonymous"> -->
+    <!-- <meta name="description" content=""> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="ky_GtW3ix1x6MhH-pM6PonkpJCmE-237rRUvxvyQjVs" />
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+    <link rel="icon" href="./static/image/favicon.png">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+
+    <!-- MathJax -->
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>        
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      });
+    </script>
+
+    <!-- visitor statistics -->
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <!-- model-viewer -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+  </head>
+
+
+  <body>
+    <!-- Title -->
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column is-four-fifths has-text-centered">
+              <h1 class="title is-2 publication-title">Dexterous Manipulation Policies from RGB Human Videos via 3D Hand-Object Trajectory Reconstruction</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Teaser Video -->
+    <section class="hero teaser" style="padding: 40px 0;">
+      <div class="container" style="max-width: 1400px; width: 100%;">
+        <div class="hero-body" style="padding: 20px;">
+          <div class="columns is-centered has-text-centered" style="margin-bottom: 30px;">
+            <div class="column">
+              <p class="content has-text-justified" style="font-size: 1.1em; max-width: 900px; margin: 0 auto;">
+                We propose VideoManip, a framework that learns dexterous grasping and manipulation entirely from RGB human videos, without requiring wearables or external sensor devices, robot demonstrations for post-training, or pre-scanned object models.
+              </p>
+            </div>
+          </div>
+          <div style="width: 100%; max-width: 100%; margin: 0 auto; padding: 0 20px;">
+            <video id="teaser" autoplay muted loop playsinline controls preload="auto" class="video-with-border" style="width: 100%; height: auto; max-width: 100%; display: block; margin: 0 auto;">
+              <source src="./static/data/teaser.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+              <source src="./static/data/teaser.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <!-- Abstract -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <h2 class="title is-3">Abstract</h2>
+            <div class="content has-text-justified">
+              <p>
+                Multi-finger robotic hand manipulation and grasping are challenging due to the high-dimensional action space and the difficulty of acquiring large-scale training data.
+                Existing approaches largely rely on human teleoperation with wearable devices or specialized sensing equipment to capture hand-object interactions, which limits scalability. 
+                In this work, we propose VideoManip, a device-free framework that learns dexterous manipulation directly from RGB human videos. Leveraging recent advances in computer vision, VideoManip reconstructs explicit 3D robot-object trajectories from monocular videos by estimating human hand poses, object meshes, and retargets the reconstructed human motions to robotic hands for manipulation learning. 
+                To make the reconstructed robot data suitable for dexterous manipulation training, we introduce hand-object contact optimization with interaction-centric grasp modeling, as well as a demonstration synthesis strategy that generates diverse training trajectories from a single video, enabling generalizable policy learning without additional robot demonstrations. 
+                In simulation, the learned grasping model achieves a 70.25% success rate across 20 diverse objects using the Inspire Hand. In the real world, manipulation policies trained from RGB videos achieve an average 62.86% success rate across seven tasks using the LEAP Hand, outperforming retargeting-based methods by 15.87%.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!--/ Abstract -->
+
+        <!-- Teaser Image -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <div class="content has-text-justified">
+              <figure>
+                <img src="./static/image/teaser.png" alt="Teaser Image">
+              </figure>
+            </div>
+          </div>
+        </div>
+        <!--/ Teaser Image -->
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <!-- Overview -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <h2 class="title is-3">VideoManip Overview</h2>
+            <div class="content has-text-justified">
+              <p>
+                VideoManip recovers explicit 3D hand-object trajectories from monocular videos by estimating human hand poses, object meshes, and object scales, and subsequently retargets the reconstructed human motions to robot hands. 
+              </p>
+              
+              <p>
+                For <b style="font-weight: bold; color: #000000;">in-scene videos</b>, we assume known camera-robot extrinsic calibration and use it to transform reconstructed trajectories from the camera frame to the robot base frame for policy training. In contrast, for <b style="font-weight: bold; color: #000000;">in-the-wild videos</b>, which are recorded outside robot setups without extrinsic calibration, we estimate the gravity direction from visual observations and align camera-centric trajectories with a physically meaningful world frame.
+              </p>
+
+              <p>
+                To make the reconstructed robot data applicable for dexterous manipulation training, we introduce two components that improve the of grasp-model training and the generalization of manipulation policies. 
+              </p>
+
+              <p>
+                First, we perform (i) <b style="font-weight: bold; color: #000000;">differential hand pose optimization</b> by predicting hand-object contact maps to encourage physically plausible interactions, and (ii) <b style="font-weight: bold; color: #000000;">interaction-centric grasp modeling</b> to exploit the optimized contact map for valid grasp learning. 
+              </p>
+
+              <p>
+                Second, we leverage DemoGen to <b style="font-weight: bold; color: #000000;">synthesize diverse demonstrations</b> from a single reconstructed video trajectory, enabling <b style="font-weight: bold; color: #000000;">one-to-many trajectory generation</b> for generalizable manipulation policy training. 
+              </p>
+              <figure>
+                <img src="./static/image/videomanip_pipeline.png" alt="Overview of VideoManip Framework">
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Functional Grasp Predictions -->
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column">
+            <h2 class="title is-3 has-text-centered">Dexterous Grasp Evaluations in Simulation</h2>
+                <div class="columns is-centered">
+                  <div class="column">
+                <div class="content has-text-justified">
+                  <p class="has-text-centered" style="margin-top: -10px; margin-bottom: 20px;">
+                    We trained DRO grasping model using video-reconstructed grasp data from human videos. We test the DRO predicted grasps on an 18-Dof Inspire Hand in IsaacGym Simulator.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Human Grasp Videos Button and Expandable Section -->
+        <div class="columns is-centered" style="margin-top: 20px; margin-bottom: 30px;">
+          <div class="column has-text-centered">
+            <button id="human-grasp-videos-btn" class="button is-primary is-medium" style="background-color: #66c0ff; border: none; border-radius: 8px; padding: 12px 30px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background-color 0.3s;">
+              <span id="human-grasp-videos-btn-text">Human Grasp Videos</span>
+              <span id="human-grasp-videos-icon" style="margin-left: 8px;">▼</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Expandable Human Grasp Videos Section -->
+        <div id="human-grasp-videos-section" class="columns is-centered" style="display: none; margin-top: 20px; margin-bottom: 30px;">
+          <div class="column is-fullwidth" style="max-width: 1000px;">
+            <div class="content has-text-centered">
+              <video id="human-grasp-video" autoplay muted loop playsinline controls preload="auto" style="width: 100%; height: auto; min-height: 400px;" class="video-with-border">
+                <source src="static/data/grasp/human_grasp_video.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                <source src="static/data/grasp/human_grasp_video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+
+        <!-- Object Carousel -->
+        <div class="object-carousel-container" style="position: relative; margin: 20px 0; overflow: hidden; width: 100%; max-width: 1000px; margin-left: auto; margin-right: auto;">
+          <!-- Left Arrow -->
+          <button id="carousel-left" class="carousel-arrow carousel-left" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); z-index: 10; background: rgba(102, 192, 255, 0.8); border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; color: white;">
+            &#8249;
+          </button>
+          
+          <!-- Right Arrow -->
+          <button id="carousel-right" class="carousel-arrow carousel-right" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); z-index: 10; background: rgba(102, 192, 255, 0.8); border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; color: white;">
+            &#8250;
+          </button>
+
+          <!-- Scrollable Object Row -->
+          <div id="object-carousel" style="display: flex; padding: 20px 80px; transition: transform 0.3s ease; overflow: visible; width: max-content;">
+            <!-- Object items will be populated by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </section> 
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Functional Grasp Carousel
+        const objectCarousel = document.getElementById('object-carousel');
+        const carouselLeft = document.getElementById('carousel-left');
+        const carouselRight = document.getElementById('carousel-right');
+        
+        if (objectCarousel && carouselLeft && carouselRight) {
+          const objects = [
+            'apple', 'bottle', 'bowl', 'case', 'cup', 'cloth hanger',
+            'hand bag', 'hat', 'ladle', 'mug', 'pan', 'pot',
+            'powerdrill', 'scissors', 'soap dispenser', 'spraybottle', 'sunglass', 'toothbrush', 'umbrella', 'wineglass'
+          ];
+
+          let currentIndex = 0;
+          const itemsPerView = 4;
+          const itemWidth = 220; // 200px model + 20px gap
+
+          // Create carousel items
+          function createCarouselItems() {
+            objectCarousel.innerHTML = '';
+            objects.forEach((object, index) => {
+              const item = document.createElement('div');
+              item.className = 'carousel-item';
+              item.style.cssText = 'flex: 0 0 200px; display: flex; flex-direction: column; align-items: center; margin-right: 20px;';
+              
+              item.innerHTML = `
+                <model-viewer
+                  src="static/data/grasp/inspire/${object}/0.glb"
+                  alt="${object} Grasp"
+                  ar
+                  camera-controls
+                  auto-rotate
+                  auto-rotate-delay="1000"
+                  interaction-prompt-threshold="2000"
+                  exposure="1.2"
+                  shadow-intensity="1"
+                  environment-image="neutral"
+                  style="width: 200px; height: 200px; border: 3px solid #66c0ff; border-radius: 15px;">
+                </model-viewer>
+                <p style="font-size: 16px; font-weight: bold; margin-top: 10px; text-transform: capitalize;">${object.replace('_', ' ')}</p>
+              `;
+              
+              objectCarousel.appendChild(item);
+            });
+            
+            // Debug: log total items created
+            console.log(`Created ${objects.length} carousel items`);
+          }
+
+          // Scroll carousel
+          function scrollCarousel(direction) {
+            // Calculate max index to ensure all objects are viewable
+            // For 19 objects with 4 items per view, we need positions 0-15 (16 positions total)
+            const maxIndex = Math.max(0, objects.length - itemsPerView);
+            
+            if (direction === 'left') {
+              currentIndex = Math.max(0, currentIndex - 1);
+            } else if (direction === 'right') {
+              currentIndex = Math.min(maxIndex, currentIndex + 1);
+            }
+            // If no direction provided (initialization), keep current index
+            
+            const translateX = -(currentIndex * itemWidth);
+            objectCarousel.style.transform = `translateX(${translateX}px)`;
+            
+            // Update arrow visibility
+            carouselLeft.style.opacity = currentIndex === 0 ? '0.5' : '1';
+            carouselRight.style.opacity = currentIndex === maxIndex ? '0.5' : '1';
+            
+            // Debug info - can be removed later
+            console.log(`Current index: ${currentIndex}, Max index: ${maxIndex}, Total objects: ${objects.length}, Showing objects ${currentIndex + 1}-${Math.min(currentIndex + itemsPerView, objects.length)}`);
+          }
+
+          // Event listeners
+          carouselLeft.addEventListener('click', () => scrollCarousel('left'));
+          carouselRight.addEventListener('click', () => scrollCarousel('right'));
+
+          // Initialize carousel
+          createCarouselItems();
+          scrollCarousel(); // Initialize arrow states
+        }
+
+        // Human Grasp Videos expandable section
+        const humanGraspVideosBtn = document.getElementById('human-grasp-videos-btn');
+        const humanGraspVideosSection = document.getElementById('human-grasp-videos-section');
+        const humanGraspVideosIcon = document.getElementById('human-grasp-videos-icon');
+        const humanGraspVideo = document.getElementById('human-grasp-video');
+
+        if (humanGraspVideosBtn && humanGraspVideosSection) {
+          humanGraspVideosBtn.addEventListener('click', function() {
+            const isExpanded = humanGraspVideosSection.style.display !== 'none';
+            
+            if (isExpanded) {
+              // Collapse
+              humanGraspVideosSection.style.display = 'none';
+              humanGraspVideosIcon.textContent = '▼';
+              if (humanGraspVideo) {
+                humanGraspVideo.pause();
+              }
+            } else {
+              // Expand
+              humanGraspVideosSection.style.display = 'block';
+              humanGraspVideosIcon.textContent = '▲';
+              if (humanGraspVideo) {
+                humanGraspVideo.play().catch(e => console.log('Video autoplay prevented:', e));
+              }
+            }
+          });
+        }
+      });
+    </script>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column">
+            <h2 class="title is-3 has-text-centered">Real-world Dexterous Robot Hand Manipulation Evaluations</h2>
+            <p class="has-text-centered" style="margin-top: -10px; margin-bottom: 20px; font-style: italic;">All real-world robot execution videos are rollouts from a closed-loop trained DP3 policy. The robot execution videos are sped up by 4 times</p>
+          </div>
+        </div>
+    
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-fullwidth">
+            <div class="manip-videos-container" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+              <!-- Control Panel (Horizontal) -->
+              <div class="manip-control-panel" style="width: 100%; max-width: 1200px; margin-bottom: 20px; padding: 15px; background-color: #f5f5f5; border-radius: 10px; display: flex; justify-content: center; align-items: center; gap: 20px;">
+                <label for="manipCategorySelect" style="font-size: 18px; font-weight: bold;">Select Category:</label>
+                <select id="manipCategorySelect" class="custom-select" style="width: 200px; padding: 8px; font-size: 16px; border-radius: 5px; border: 2px solid #66c0ff;">
+                  <option value="in_scene">In Scene</option>
+                  <option value="in_the_wild">In The Wild</option>
+                </select>
+                <label for="manipTaskSelect" style="font-size: 18px; font-weight: bold;">Select Task:</label>
+                <select id="manipTaskSelect" class="custom-select" style="width: 200px; padding: 8px; font-size: 16px; border-radius: 5px; border: 2px solid #66c0ff;">
+                  <option value="">-- Select Category First --</option>
+                </select>
+              </div>
+              
+              <!-- First Row: RGB and Human -->
+              <div class="manip-videos-row-1" style="display: flex; flex-direction: row; gap: 15px; justify-content: center; align-items: flex-start; width: 100%; max-width: 100vw; padding: 0 15px; margin-bottom: 15px;">
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                  <video id="manip-video-rgb" autoplay muted loop playsinline controls preload="auto" style="width: 100%; max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
+                    <source src="static/data/manip/pourtea/rgb.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                    <source src="static/data/manip/pourtea/rgb.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                  <p style="margin-top: 8px; font-weight: 600;">RGB Human Video</p>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                  <video id="manip-video-human" autoplay muted loop playsinline controls preload="auto" style="width: 100%; max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
+                    <source src="static/data/manip/pourtea/human.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                    <source src="static/data/manip/pourtea/human.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                  <p style="margin-top: 8px; font-weight: 600;">Reconstructed Human Hand and Object Trajectory</p>
+                </div>
+              </div>
+              
+              <!-- Second Row: Robot Execution Videos (Case 1 and Case 2) -->
+              <div class="manip-videos-row-2" style="display: flex; flex-direction: row; gap: 15px; justify-content: center; align-items: flex-start; width: 100%; max-width: 100vw; padding: 0 15px;">
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                  <video id="manip-video-1" autoplay muted loop playsinline controls preload="auto" style="width: 100%; max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
+                    <source src="static/data/manip/pourtea/pourtea_1.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                  <p style="margin-top: 8px; font-weight: 600;">Real-World Test 1</p>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                  <video id="manip-video-2" autoplay muted loop playsinline controls preload="auto" style="width: 100%; max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
+                    <source src="static/data/manip/pourtea/pourtea_2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                  <p style="margin-top: 8px; font-weight: 600;">Real-World Test 2</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <script>
+      function changeVideo(videoSrc) {
+        const mainVideo = document.getElementById('main-video');
+        mainVideo.src = videoSrc;
+        mainVideo.muted = true;
+        mainVideo.loop = true;
+        mainVideo.load();
+        mainVideo.play();
+      }
+
+      // Shared function to update video source
+      function updateVideoSource(videoElement, videoSrc) {
+        // Remove all existing source elements
+        const existingSources = videoElement.querySelectorAll('source');
+        existingSources.forEach(source => source.remove());
+        
+        // Add new source elements with H.264 codec (all videos are now H.264)
+        const source1 = document.createElement('source');
+        source1.src = videoSrc;
+        source1.type = 'video/mp4; codecs=avc1.64001E,mp4a.40.2'; // H.264 High Profile
+        videoElement.appendChild(source1);
+        
+        const source2 = document.createElement('source');
+        source2.src = videoSrc;
+        source2.type = 'video/mp4; codecs=avc1.42E01E,mp4a.40.2'; // H.264 Baseline Profile (fallback)
+        videoElement.appendChild(source2);
+        
+        const source3 = document.createElement('source');
+        source3.src = videoSrc;
+        source3.type = 'video/mp4'; // Generic fallback
+        videoElement.appendChild(source3);
+        
+        // Also set video src directly as fallback
+        videoElement.src = videoSrc;
+        videoElement.load();
+        return videoElement;
+      }
+
+      // Manip videos task selection
+      document.addEventListener('DOMContentLoaded', function() {
+        const manipCategorySelect = document.getElementById('manipCategorySelect');
+        const manipTaskSelect = document.getElementById('manipTaskSelect');
+        // First row videos: RGB and Human
+        const manipVideoRgb = document.getElementById('manip-video-rgb');
+        const manipVideoHuman = document.getElementById('manip-video-human');
+        // Second row videos: Robot Execution (Case 1 and Case 2)
+        const manipVideo1 = document.getElementById('manip-video-1');
+        const manipVideo2 = document.getElementById('manip-video-2');
+
+        // Category to tasks mapping
+        const categoryTasks = {
+          'in_scene': ['pourtea', 'placebottle', 'closedrawer'],
+          'in_the_wild': ['pourtea', 'hang', 'jenga_move', 'bulb']
+        };
+
+        // Default task for each category (first task in the list)
+        const defaultTasks = {
+          'in_scene': 'placebottle',
+          'in_the_wild': 'hang'
+        };
+
+        // Task display names
+        const taskDisplayNames = {
+          'jenga_move': 'Move Jenga Box',
+          'pourtea': 'Pour Tea',
+          'closedrawer': 'Close Drawer',
+          'placebottle': 'Place Bottle',
+          'hang': 'Hang Hat',
+          'bulb': 'Screw Bulb'
+        };
+
+        // Helper function to get video paths
+        function getVideoPaths(category, task) {
+          const basePath = `static/data/manip/${category}/${task}`;
+          // Default case videos
+          let case1 = `${basePath}/${task}_1.mp4`;
+          let case2 = `${basePath}/${task}_2.mp4`;
+          
+          // Special handling for tasks with different case video names
+          if (task === 'jenga_move') {
+            case1 = `${basePath}/jenga_move_1.mp4`;
+            case2 = `${basePath}/jenga_move_2.mp4`;
+          } else if (task === 'placebottle' && category === 'in_scene') {
+            // in_scene/placebottle has placebottle_1, placebottle_2, placebottle_3
+            case1 = `${basePath}/placebottle_1.mp4`;
+            case2 = `${basePath}/placebottle_2.mp4`;
+          }
+          // bulb task uses default pattern: bulb_1.mp4, bulb_2.mp4
+          
+          return {
+            row1: [
+              `${basePath}/rgb.mp4`,
+              `${basePath}/human.mp4`
+            ],
+            row2: [
+              case1,
+              case2
+            ]
+          };
+        }
+
+        // Function to populate task dropdown based on category
+        function populateTaskDropdown(category, selectDefault = true) {
+          manipTaskSelect.innerHTML = '';
+          if (!category || !categoryTasks[category]) {
+            manipTaskSelect.innerHTML = '<option value="">-- Select Category First --</option>';
+            return;
+          }
+          
+          const tasks = categoryTasks[category];
+          tasks.forEach(task => {
+            const option = document.createElement('option');
+            option.value = task;
+            option.textContent = taskDisplayNames[task] || task;
+            manipTaskSelect.appendChild(option);
+          });
+          
+          // Select default task if specified
+          if (selectDefault && defaultTasks[category]) {
+            manipTaskSelect.value = defaultTasks[category];
+          }
+        }
+
+        // Category change handler
+        function handleCategoryChange() {
+          const category = manipCategorySelect.value;
+          populateTaskDropdown(category, true); // Select default task
+          // Automatically update videos with default task
+          if (defaultTasks[category]) {
+            setTimeout(() => {
+              updateManipVideos();
+            }, 100);
+          } else {
+            // Clear videos if no default task
+            if (manipVideoRgb) manipVideoRgb.src = '';
+            if (manipVideoHuman) manipVideoHuman.src = '';
+            if (manipVideo1) manipVideo1.src = '';
+            if (manipVideo2) manipVideo2.src = '';
+          }
+        }
+
+        function updateManipVideos() {
+          const selectedCategory = manipCategorySelect.value;
+          const selectedTask = manipTaskSelect.value;
+          
+          if (!selectedCategory || !selectedTask) {
+            return;
+          }
+          
+          const videos = getVideoPaths(selectedCategory, selectedTask);
+          
+          if (videos && videos.row1 && videos.row2) {
+            // Update first row (RGB and Human)
+            updateVideoSource(manipVideoRgb, videos.row1[0]);
+            updateVideoSource(manipVideoHuman, videos.row1[1]);
+            
+            // Update second row (Robot Execution: Case 1 and Case 2)
+            updateVideoSource(manipVideo1, videos.row2[0]);
+            updateVideoSource(manipVideo2, videos.row2[1]);
+            
+            // Ensure autoplay after load with error handling
+            setTimeout(() => {
+              manipVideoRgb.play().catch(e => console.log('RGB autoplay prevented:', e));
+              manipVideoHuman.play().catch(e => console.log('Human autoplay prevented:', e));
+              manipVideo1.play().catch(e => console.log('Case1 autoplay prevented:', e));
+              manipVideo2.play().catch(e => console.log('Case2 autoplay prevented:', e));
+            }, 200);
+          }
+        }
+
+        // Event listeners
+        if (manipCategorySelect) {
+          manipCategorySelect.addEventListener('change', handleCategoryChange);
+          // Initialize task dropdown with first category and default task
+          const initialCategory = manipCategorySelect.value;
+          populateTaskDropdown(initialCategory, true);
+          // Load default task videos on page load
+          if (defaultTasks[initialCategory]) {
+            setTimeout(() => {
+              updateManipVideos();
+            }, 200);
+          }
+        }
+        
+        if (manipTaskSelect) {
+          manipTaskSelect.addEventListener('change', updateManipVideos);
+        }
+      });
+    </script> 
+
+    <!-- Reconstruction Videos Section -->
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column">
+            <h2 class="title is-3 has-text-centered">More 3D Hand-Object Trajectory Reconstructions<br>from In-the-Wild Human Videos</h2>
+          </div>
+        </div>
+    
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-fullwidth">
+            <div class="reconstruction-videos-container" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+              <!-- Control Panel -->
+              <div class="reconstruction-control-panel" style="width: 100%; max-width: 1200px; margin-bottom: 20px; padding: 15px; background-color: #f5f5f5; border-radius: 10px; display: flex; justify-content: center; align-items: center; gap: 20px;">
+                <label for="reconstructionTaskSelect" style="font-size: 18px; font-weight: bold;">Select Task:</label>
+                <select id="reconstructionTaskSelect" class="custom-select" style="width: 250px; padding: 8px; font-size: 16px; border-radius: 5px; border: 2px solid #66c0ff;">
+                  <option value="Screw Small Bulb">Screw Small Bulb</option>
+                  <option value="Lint Roller Clean">Lint Roller Clean</option>
+                  <option value="Scoop Cat Litter">Scoop Cat Litter</option>
+                  <option value="Scoop Nugget">Scoop Nugget</option>
+                  <option value="Clean Cloth">Clean Cloth</option>
+                </select>
+              </div>
+              
+              <!-- First Row: RGB and Projection -->
+              <div class="reconstruction-videos-row-1" style="display: flex; flex-direction: row; gap: 15px; justify-content: center; align-items: flex-start; width: 100%; max-width: 100vw; padding: 0 15px; margin-bottom: 15px;">
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                  <video id="reconstruction-video-rgb" autoplay muted loop playsinline controls preload="auto" style="width: 100%; max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
+                    <source src="static/data/reconstruction/Screw Small Bulb/rgb.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                    <source src="static/data/reconstruction/Screw Small Bulb/rgb.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                  <p style="margin-top: 8px; font-weight: 600;">RGB Human Video</p>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                  <video id="reconstruction-video-projection" autoplay muted loop playsinline controls preload="auto" style="width: 100%; max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
+                    <source src="static/data/reconstruction/Screw Small Bulb/projection.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                    <source src="static/data/reconstruction/Screw Small Bulb/projection.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                  <p style="margin-top: 8px; font-weight: 600;">Reconstructed Point Clouds Projected to Video</p>
+                </div>
+              </div>
+              
+              <!-- Second Row: Human and Robot -->
+              <div class="reconstruction-videos-row-2" style="display: flex; flex-direction: row; gap: 15px; justify-content: center; align-items: flex-start; width: 100%; max-width: 100vw; padding: 0 15px;">
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                  <video id="reconstruction-video-human" autoplay muted loop playsinline controls preload="auto" style="width: 100%; max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
+                    <source src="static/data/reconstruction/Screw Small Bulb/human.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                    <source src="static/data/reconstruction/Screw Small Bulb/human.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                  <p style="margin-top: 8px; font-weight: 600;">Reconstructed Human Hand and Object Trajectory</p>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                  <video id="reconstruction-video-robot" autoplay muted loop playsinline controls preload="auto" style="width: 100%; max-width: calc((1200px - 15px) / 2); height: auto; min-height: 400px;" class="video-with-border">
+                    <source src="static/data/reconstruction/Screw Small Bulb/robot.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                    <source src="static/data/reconstruction/Screw Small Bulb/robot.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                  <p style="margin-top: 8px; font-weight: 600;">Reconstructed Robot Hand and Object Trajectory</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // Reconstruction videos task selection
+      document.addEventListener('DOMContentLoaded', function() {
+        const reconstructionTaskSelect = document.getElementById('reconstructionTaskSelect');
+        const reconstructionVideoRgb = document.getElementById('reconstruction-video-rgb');
+        const reconstructionVideoProjection = document.getElementById('reconstruction-video-projection');
+        const reconstructionVideoHuman = document.getElementById('reconstruction-video-human');
+        const reconstructionVideoRobot = document.getElementById('reconstruction-video-robot');
+
+        function updateReconstructionVideos() {
+          const selectedTask = reconstructionTaskSelect.value;
+          
+          if (!selectedTask) {
+            return;
+          }
+          
+          const basePath = `static/data/reconstruction/${selectedTask}`;
+          
+          // Update video sources
+          updateVideoSource(reconstructionVideoRgb, `${basePath}/rgb.mp4`);
+          updateVideoSource(reconstructionVideoProjection, `${basePath}/projection.mp4`);
+          updateVideoSource(reconstructionVideoHuman, `${basePath}/human.mp4`);
+          updateVideoSource(reconstructionVideoRobot, `${basePath}/robot.mp4`);
+          
+          // Ensure autoplay after load with error handling
+          setTimeout(() => {
+            reconstructionVideoRgb.play().catch(e => console.log('RGB autoplay prevented:', e));
+            reconstructionVideoProjection.play().catch(e => console.log('Projection autoplay prevented:', e));
+            reconstructionVideoHuman.play().catch(e => console.log('Human autoplay prevented:', e));
+            reconstructionVideoRobot.play().catch(e => console.log('Robot autoplay prevented:', e));
+          }, 200);
+        }
+
+        // Event listener
+        if (reconstructionTaskSelect) {
+          reconstructionTaskSelect.addEventListener('change', updateReconstructionVideos);
+          // Load default task videos on page load
+          setTimeout(() => {
+            updateReconstructionVideos();
+          }, 200);
+        }
+      });
+    </script>
+
+    <!-- Failure Analysis Section -->
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column">
+            <h2 class="title is-3 has-text-centered">Failure Analysis</h2>
+          </div>
+        </div>
+
+        <!-- Failure Type Selector -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-fullwidth">
+            <div class="failure-control-panel" style="width: 100%; max-width: 600px; margin: 0 auto 20px auto; padding: 15px; background-color: #f5f5f5; border-radius: 10px; display: flex; justify-content: center; align-items: center; gap: 20px;">
+              <label for="failureTypeSelect" style="font-size: 18px; font-weight: bold;">Select Failure Type:</label>
+              <select id="failureTypeSelect" class="custom-select" style="width: 260px; padding: 8px; font-size: 16px; border-radius: 5px; border: 2px solid #66c0ff;">
+                <option value="obj_pose">Object Pose Estimation Error</option>
+                <option value="retarget">Hand Retargeting Failure</option>
+                <option value="manipulation">Manipulation Failures</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Object Pose Estimation Error -->
+        <div id="failure-obj-pose" class="columns is-centered">
+          <div class="column is-fullwidth">
+            <h3 class="title is-4 has-text-centered">Object Pose Estimation Error</h3>
+            <p class="has-text-centered" style="margin-top: -10px; margin-bottom: 20px; max-width: 900px; margin-left: auto; margin-right: auto;">
+              Incorrect object pose estimation can occur when the hand occludes the object.
+            </p>
+
+            <!-- Row 1: obj_pose_0 and human_0 -->
+            <div class="columns is-centered has-text-centered" style="margin-bottom: 15px;">
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Obj Pose Estimation Error/obj_pose_0.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Obj Pose Estimation Error/obj_pose_0.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Estimated Object Pose (Case 1)</p>
+              </div>
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Obj Pose Estimation Error/human_0.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Obj Pose Estimation Error/human_0.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Reconstructed Human Hand and Object Trajectory (Case 1)</p>
+              </div>
+            </div>
+
+            <!-- Row 2: obj_pose_1 and human_1 -->
+            <div class="columns is-centered has-text-centered">
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Obj Pose Estimation Error/obj_pose_1.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Obj Pose Estimation Error/obj_pose_1.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Estimated Object Pose (Case 2)</p>
+              </div>
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Obj Pose Estimation Error/human_1.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Obj Pose Estimation Error/human_1.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Reconstructed Human Hand and Object Trajectory (Case 2)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hand Retargeting Failure -->
+        <div id="failure-retarget" class="columns is-centered" style="margin-top: 40px; display: none;">
+          <div class="column is-fullwidth">
+            <h3 class="title is-4 has-text-centered">Hand Retargeting Failure</h3>
+            <p class="has-text-centered" style="margin-top: -10px; margin-bottom: 20px; max-width: 900px; margin-left: auto; margin-right: auto;">
+              For kinematic retargeting, we match robot fingertip positions to those of the human hand. However, because the LEAP Hand is significantly larger than a human hand, large pose adjustments are required to bring the robot fingertips close to the human finger positions, which lead to failure cases. While Inspire Hand, which is similar in size to a human hand, does not suffer from this problem.
+            </p>
+
+            <!-- Row 1: rgb and human -->
+            <div class="columns is-centered has-text-centered" style="margin-bottom: 15px;">
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Hand Retargeting Failure/rgb.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Hand Retargeting Failure/rgb.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Input RGB Video</p>
+              </div>
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Hand Retargeting Failure/human.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Hand Retargeting Failure/human.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Reconstructed Human Hand and Object Trajectory</p>
+              </div>
+            </div>
+
+            <!-- Row 2: robot_inspire and robot_leap -->
+            <div class="columns is-centered has-text-centered">
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Hand Retargeting Failure/robot_inspire.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Hand Retargeting Failure/robot_inspire.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Retargeted Inspire Hand and Object Trajectory</p>
+              </div>
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Hand Retargeting Failure/robot_leap.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Hand Retargeting Failure/robot_leap.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Retargeted LEAP Hand and Object Trajectory</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Manipulation Failures -->
+        <div id="failure-manipulation" class="columns is-centered" style="display: none;">
+          <div class="column is-fullwidth">
+            <h3 class="title is-4 has-text-centered">Manipulation Failures</h3>
+            <!-- Row 1: failure_1 and failure_2 -->
+            <div class="columns is-centered has-text-centered" style="margin-bottom: 15px;">
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Manipulation Failure/failure_1.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Manipulation Failure/failure_1.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Failure Case 1 (Didn't remain in contact with bulb, too much force was applied)</p>
+              </div>
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Manipulation Failure/failure_2.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Manipulation Failure/failure_2.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Failure Case 2 (Bump on shelf)</p>
+              </div>
+            </div>
+
+            <!-- Row 2: failure_3 and failure_4 -->
+            <div class="columns is-centered has-text-centered">
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Manipulation Failure/failure_3.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Manipulation Failure/failure_3.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Failure Case 3 (Miss the target bowl)</p>
+              </div>
+              <div class="column is-half">
+                <video autoplay muted loop playsinline controls preload="auto"
+                  style="width: 100%; height: auto; min-height: 320px;" class="video-with-border">
+                  <source src="static/data/failures/Manipulation Failure/failure_4.mp4" type="video/mp4; codecs=avc1.64001E,mp4a.40.2">
+                  <source src="static/data/failures/Manipulation Failure/failure_4.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <p style="margin-top: 8px; font-weight: 600;">Failure Case 4 (Didn't fully close the drawer)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // Failure analysis type selection
+      document.addEventListener('DOMContentLoaded', function() {
+        const failureTypeSelect = document.getElementById('failureTypeSelect');
+        const failureObjPose = document.getElementById('failure-obj-pose');
+        const failureRetarget = document.getElementById('failure-retarget');
+        const failureManipulation = document.getElementById('failure-manipulation');
+
+        function updateFailureView() {
+          if (!failureTypeSelect) return;
+          
+          const type = failureTypeSelect.value;
+          
+          // Hide all sections first
+          if (failureObjPose) failureObjPose.style.display = 'none';
+          if (failureRetarget) failureRetarget.style.display = 'none';
+          if (failureManipulation) failureManipulation.style.display = 'none';
+          
+          // Show selected section
+          if (type === 'obj_pose') {
+            if (failureObjPose) failureObjPose.style.display = 'block';
+          } else if (type === 'retarget') {
+            if (failureRetarget) failureRetarget.style.display = 'block';
+          } else if (type === 'manipulation') {
+            if (failureManipulation) failureManipulation.style.display = 'block';
+          }
+        }
+
+        if (failureTypeSelect) {
+          failureTypeSelect.addEventListener('change', updateFailureView);
+          // Initialize on page load - show obj_pose by default
+          updateFailureView();
+        }
+      });
+    </script>
+
+    <!-- Footer -->
+    <footer class="footer", style="padding: 40px 0;">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <div class="content">
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!--/ Footer -->
+
+
+
+  </body>
+</html>
